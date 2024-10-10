@@ -1,6 +1,7 @@
 ---
-layout: page
-title: Github使用指南
+layout: default
+title: GitHub使用指南
+permalink: /start/
 ---
 
 # 如何使用GitHub和Git
