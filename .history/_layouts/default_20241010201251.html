@@ -1,0 +1,38 @@
+<!-- 现有的 header 内容 -->
+<header>
+  <!-- ... -->
+
+  <!-- 添加导航菜单 -->
+  <nav>
+    {% for item in site.data.navigation %}
+      <a href="{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}>
+        {{ item.name }}
+      </a>
+      {% if item.sublinks %}
+        <ul>
+          {% for subitem in item.sublinks %}
+            <li>
+              <a href="{{ subitem.link }}" {% if page.url == subitem.link %}class="current"{% endif %}>
+                {{ subitem.name }}
+              </a>
+              {% if subitem.sublinks %}
+                <ul>
+                  {% for subsubitem in subitem.sublinks %}
+                    <li>
+                      <a href="{{ subsubitem.link }}" {% if page.url == subsubitem.link %}class="current"{% endif %}>
+                        {{ subsubitem.name }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  </nav>
+
+  <!-- ... -->
+</header>
+<!-- 其余的布局内容 -->
