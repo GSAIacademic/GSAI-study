@@ -1,7 +1,3 @@
----
-layout: page
-title: 人工智能与Python
----
 
 # 人工智能与Python
 

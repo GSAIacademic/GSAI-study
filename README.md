@@ -1,7 +1,3 @@
----
-layout: home
-title: 首页
----
 
 # GSAI-study
 
