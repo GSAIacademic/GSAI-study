@@ -1,3 +1,8 @@
+---
+layout: home
+title: 首页
+---
+
 # GSAI-study
 
 ## 项目简介

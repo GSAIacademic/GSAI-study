@@ -1,0 +1,8 @@
+- name: 首页
+  link: /
+- name: Github使用指南
+  link: /start.html
+- name: 大一课程
+  link: /大一课程
+- name: GSAI学习
+  link: /GSAI-STUDY

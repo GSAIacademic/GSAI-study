@@ -1,0 +1,81 @@
+- name: 首页
+  link: /
+- name: GitHub使用指南
+  link: /start
+- name: 大一课程
+  link: /大一课程
+  sublinks:
+    - name: 人工智能与Python
+      link: /大一课程/人工智能与python/
+      sublinks:
+        - name: 课程介绍
+          link: /大一课程/人工智能与python/readme
+        - name: 注意事项
+          link: /大一课程/人工智能与python/注意事项
+    - name: 程序设计
+      link: /大一课程/程序设计/
+      sublinks:
+        - name: 课程介绍
+          link: /大一课程/程序设计/readme
+        - name: 注意事项
+          link: /大一课程/程序设计/注意事项
+        - name: 学习资源
+          link: /大一课程/程序设计/学习资源/
+          sublinks:
+            - name: 教材参考
+              link: /大一课程/程序设计/学习资源/教材参考
+- name: GSAI学习
+  link: /GSAI-STUDY
+  sublinks:
+    - name: 数学基础
+      link: /GSAI-STUDY/数学基础/
+      sublinks:
+        - name: 线性代数
+          link: /GSAI-STUDY/数学基础/线性代数
+        - name: 概率论与数理统计
+          link: /GSAI-STUDY/数学基础/概率论与数理统计
+        - name: 微积分
+          link: /GSAI-STUDY/数学基础/微积分
+    - name: 编程基础
+      link: /GSAI-STUDY/编程基础/
+      sublinks:
+        - name: Python
+          link: /GSAI-STUDY/编程基础/Python
+        - name: C++
+          link: /GSAI-STUDY/编程基础/C++
+    - name: 机器学习
+      link: /GSAI-STUDY/机器学习/
+      sublinks:
+        - name: 监督学习
+          link: /GSAI-STUDY/机器学习/监督学习
+        - name: 无监督学习
+          link: /GSAI-STUDY/机器学习/无监督学习
+        - name: 强化学习
+          link: /GSAI-STUDY/机器学习/强化学习
+    - name: 深度学习
+      link: /GSAI-STUDY/深度学习/
+      sublinks:
+        - name: 神经网络基础
+          link: /GSAI-STUDY/深度学习/神经网络基础
+        - name: 卷积神经网络
+          link: /GSAI-STUDY/深度学习/卷积神经网络
+        - name: 循环神经网络
+          link: /GSAI-STUDY/深度学习/循环神经网络
+    - name: 计算机视觉
+      link: /GSAI-STUDY/计算机视觉/
+      sublinks:
+        - name: 图像处理
+          link: /GSAI-STUDY/计算机视觉/图像处理
+        - name: 目标检测
+          link: /GSAI-STUDY/计算机视觉/目标检测
+        - name: 图像分割
+          link: /GSAI-STUDY/计算机视觉/图像分割
+    - name: 自然语言处理
+      link: /GSAI-STUDY/自然语言处理/
+      sublinks:
+        - name: 文本分类
+          link: /GSAI-STUDY/自然语言处理/文本分类
+        - name: 命名实体识别
+          link: /GSAI-STUDY/自然语言处理/命名实体识别
+        - name: 机器翻译
+          link: /GSAI-STUDY/自然语言处理/机器翻译

@@ -1,0 +1,25 @@
+- name: 首页
+  link: /
+- name: GitHub使用指南
+  link: /start
+- name: 大一课程
+  link: /大一课程
+  sublinks:
+    - name: 程序设计
+      link: /大一课程/程序设计/
+      sublinks:
+        - name: 课程介绍
+          link: /大一课程/程序设计/readme
+        - name: 注意事项
+          link: /大一课程/程序设计/注意事项
+        - name: 学习资源
+          link: /大一课程/程序设计/学习资源/
+          sublinks:
+            - name: 教材参考
+              link: /大一课程/程序设计/学习资源/教材参考
+            - name: 实用网站
+              link: /大一课程/程序设计/学习资源/实用网站
+            - name: 在线课程
+              link: /大一课程/程序设计/学习资源/在线课程
+        - name: 工具软件
+          link: 
