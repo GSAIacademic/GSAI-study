@@ -1,4 +1,8 @@
 site_name: GSAI-study
+repo_url: https://github.com/GSAIacademic/GSAI-study  # 修改为实际的仓库地址
+repo_name: GSAIacademic/GSAI-study  # 修改为实际的仓库名称
+edit_uri: edit/main/docs/  # 编辑链接的路径
+
 theme:
   name: material
   language: zh
@@ -6,12 +10,18 @@ theme:
     - navigation.tabs
     - navigation.top
     - search.highlight
+    # 添加以下功能以显示 GitHub 图标
+    - header.autohide
+    - navigation.tracking
+    - content.action.edit  # 添加编辑按钮
   palette:
     primary: blue
     accent: orange
   font:
     text: Roboto
     code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github  # 使用 GitHub 图标
 
 markdown_extensions:
   - pymdownx.highlight:
