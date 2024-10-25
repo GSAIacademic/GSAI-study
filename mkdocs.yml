@@ -2,6 +2,7 @@ site_name: GSAI-study
 repo_url: https://github.com/GSAIacademic/GSAI-study  # 修改为实际的仓库地址
 repo_name: GSAIacademic/GSAI-study  # 修改为实际的仓库名称
 edit_uri: edit/main/docs/  # 编辑链接的路径
+site_url: https://gsaiacademic.github.io/GSAI-study/
 
 theme:
   name: material
