@@ -8,7 +8,7 @@ theme:
   name: material
   language: zh
   features:
-    - navigation.tabs
+    - navigation.tabs      # 保留顶部标签导航
     - navigation.top
     - search.highlight
     - header.autohide
@@ -16,8 +16,11 @@ theme:
     - content.action.edit
     - navigation.instant
     - navigation.indexes
-    - navigation.sections
-    - navigation.expand
+    # - navigation.sections  # 移除这个，减少分段
+    # - navigation.expand    # 移除这个，默认折叠
+    - navigation.collapse   # 添加这个，允许折叠
+    - toc.follow           # 添加这个，目录跟随滚动
+    - toc.integrate        # 添加这个，将目录集成到左侧导航
     - search.suggest
     - search.share
   palette:

@@ -2,7 +2,7 @@ name: ci
 on:
   push:
     branches:
-      - main
+      - main  # 确保这里是你的主分支名称
 permissions:
   contents: write
 jobs:
