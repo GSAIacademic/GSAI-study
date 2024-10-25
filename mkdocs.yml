@@ -8,7 +8,7 @@ theme:
   name: material
   language: zh
   features:
-    - navigation.tabs      # 保留顶部标签导航
+    - navigation.tabs
     - navigation.top
     - search.highlight
     - header.autohide
@@ -16,11 +16,9 @@ theme:
     - content.action.edit
     - navigation.instant
     - navigation.indexes
-    # - navigation.sections  # 移除这个，减少分段
-    # - navigation.expand    # 移除这个，默认折叠
-    - navigation.collapse   # 添加这个，允许折叠
-    - toc.follow           # 添加这个，目录跟随滚动
-    - toc.integrate        # 添加这个，将目录集成到左侧导航
+    - navigation.collapse
+    - toc.follow
+    - toc.integrate
     - search.suggest
     - search.share
   palette:
@@ -40,12 +38,12 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.arithmatex:
       generic: true
-  - attr_list          # 添加属性列表
-  - md_in_html        # HTML 中写 Markdown
-  - def_list          # 定义列表
-  - footnotes         # 脚注
-  - tables            # 表格增强
-  - pymdownx.emoji:   # 表情支持
+  - attr_list
+  - md_in_html
+  - def_list
+  - footnotes
+  - tables
+  - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
 
@@ -64,15 +62,15 @@ plugins:
       htmlmin_opts:
           remove_comments: true
 
-copyright: Copyright &copy; 2024 GSAI-study  # 添加版权信息
+copyright: Copyright &copy; 2024 GSAI-study
 
 extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/GSAIacademic/GSAI-study
-  
-  # 添加以下配置
-  generator: false  # 不显示 "Made with Material for MkDocs" 
+  generator: false
   version:
-    provider: mike  # 使用 mike 进行版本控制
-    default: latest # 默认显示最新版本
+    provider: mike
+    default: latest
+
+# nav 部分将由脚本自动生成
