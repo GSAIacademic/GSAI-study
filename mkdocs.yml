@@ -57,6 +57,12 @@ extra_javascript:
 plugins:
   - search:
       lang: zh
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+          remove_comments: true
 
 copyright: Copyright &copy; 2024 GSAI-study  # 添加版权信息
 
@@ -64,3 +70,9 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/GSAIacademic/GSAI-study
+  
+  # 添加以下配置
+  generator: false  # 不显示 "Made with Material for MkDocs" 
+  version:
+    provider: mike  # 使用 mike 进行版本控制
+    default: latest # 默认显示最新版本
