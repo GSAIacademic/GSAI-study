@@ -21,40 +21,45 @@ jobs:
         run: |
           pip install mkdocs-material
           pip install mkdocs-minify-plugin
+          pip install pyyaml
       
-      # 修改复制步骤以复制整个目录结构
       - name: Sync files to docs
         run: |
-          # 确保 docs 目录存在
+          # 确保 docs 目录存在并清空
+          rm -rf docs
           mkdir -p docs
           
-          # 将 README.md 复制为 docs/index.md
+          # 复制 README.md 为 index.md
           if [ -f "README.md" ]; then
             echo "Copying README.md to docs/index.md"
             cp "README.md" "docs/index.md"
           fi
           
-          # 复制 start.md 到 docs
+          # 复制 start.md
           if [ -f "start.md" ]; then
             echo "Copying start.md to docs/"
             cp "start.md" "docs/"
           fi
           
-          # 复制课程目录及其内容
+          # 复制课程目录
           for dir in "大一课程" "大二课程" "大三和大四课程"; do
             if [ -d "$dir" ]; then
-              echo "Syncing $dir directory..."
-              # 使用 rsync 来同步目录（如果目标已存在则更新）
-              rsync -av --delete "$dir/" "docs/$dir/"
+              echo "Copying $dir to docs/$dir"
+              cp -r "$dir" "docs/"
             fi
           done
           
-          echo "Directory structure after sync:"
-          tree docs/ || ls -R docs/
+          # 显示最终的目录结构
+          echo "Final docs directory structure:"
+          ls -la docs/
+          find docs/ -type f
+      
+      - name: Generate Navigation
+        run: |
+          python scripts/generate_nav.py
       
       - name: Clean and Deploy
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          echo "Deploying to gh-pages..."
           mkdocs gh-deploy --force --clean --verbose
