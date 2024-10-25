@@ -76,3 +76,11 @@ extra:
   version:
     provider: mike  # 使用 mike 进行版本控制
     default: latest # 默认显示最新版本
+
+nav:
+  - 首页: index.md
+  - 快速开始: start.md
+  - 大一课程: 大一课程/
+  - 大二课程: 大二课程/
+  - 大三和大四课程: 大三和大四课程/
+  
