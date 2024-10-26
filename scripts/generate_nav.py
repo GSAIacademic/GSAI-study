@@ -8,27 +8,25 @@ def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
     if path.is_file():
         # 如果是 PDF 文件，生成一个对应的 Markdown 文件来显示它
         if path.suffix == '.pdf':
-            # 创建与 PDF 同名的目录来存放预览页面
-            preview_dir = path.parent / path.stem
-            preview_dir.mkdir(exist_ok=True)
-            
             # 生成预览页面的内容
             pdf_content = f"""# {path.stem}
 
 <div class="pdf-container">
-    <object data="../{path.name}" type="application/pdf" width="100%" height="600px">
-        <p>您的浏览器不支持 PDF 预览，请 <a href="../{path.name}">下载 PDF</a> 查看</p>
+    <object data="{str(path.relative_to(root)).replace('\\', '/')}" type="application/pdf" width="100%" height="600px">
+        <p>您的浏览器不支持 PDF 预览，请 <a href="{str(path.relative_to(root)).replace('\\', '/')}">下载 PDF</a> 查看</p>
     </object>
 </div>
 """
-            # 在预览目录中创建 index.md
-            preview_file = preview_dir / 'index.md'
-            os.makedirs(preview_file.parent, exist_ok=True)
-            with open(preview_file, 'w', encoding='utf-8') as f:
+            # 创建预览文件
+            preview_file = path.with_suffix('.md')
+            preview_path = root / str(preview_file.relative_to(path.parent.parent))
+            os.makedirs(preview_path.parent, exist_ok=True)
+            
+            with open(preview_path, 'w', encoding='utf-8') as f:
                 f.write(pdf_content)
             
             # 返回预览页面的路径
-            return {path.stem: str(preview_dir.relative_to(root) / 'index.md').replace('\\', '/')}
+            return {path.stem: str(preview_file.relative_to(path.parent.parent)).replace('\\', '/')}
         
         if path.name == 'index.md':
             return str(path.relative_to(root)).replace('\\', '/')
