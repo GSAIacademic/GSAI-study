@@ -13,47 +13,49 @@ jobs:
         with:
           fetch-depth: 0
       
+      # 添加 Python 缓存
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+          cache: 'pip'
+      
+      # 添加依赖缓存
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       
       - name: Install dependencies
         run: |
-          pip install mkdocs-material
-          pip install mkdocs-minify-plugin
-          pip install pyyaml
-          pip install pymdown-extensions
+          pip install mkdocs-material mkdocs-minify-plugin pyyaml pymdown-extensions
+      
+      # 添加构建缓存
+      - name: Cache build
+        uses: actions/cache@v3
+        with:
+          path: site
+          key: mkdocs-build-${{ github.sha }}
+          restore-keys: |
+            mkdocs-build-
       
       - name: Sync files to docs
         run: |
-          # 确保 docs 目录存在并清空
           rm -rf docs
           mkdir -p docs
           
-          # 复制 README.md 为 index.md
-          if [ -f "README.md" ]; then
-            echo "Copying README.md to docs/index.md"
-            cp "README.md" "docs/index.md"
-          fi
-          
-          # 复制 start.md
-          if [ -f "start.md" ]; then
-            echo "Copying start.md to docs/"
-            cp "start.md" "docs/"
-          fi
-          
-          # 复制课程目录
+          # 使用 rsync 替代 cp，可以更快地复制文件
           for dir in "大一课程" "大二课程" "大三和大四课程"; do
             if [ -d "$dir" ]; then
               echo "Copying $dir to docs/$dir"
-              cp -r "$dir" "docs/"
+              rsync -av --progress "$dir" "docs/"
             fi
           done
           
-          # 显示最终的目录结构
-          echo "Final docs directory structure:"
-          ls -la docs/
-          find docs/ -type f
+          cp "README.md" "docs/index.md"
+          cp "start.md" "docs/"
       
       - name: Generate Navigation
         run: |

@@ -51,12 +51,26 @@ extra_javascript:
 plugins:
   - search:
       lang: zh
+      prebuild_index: true  # 预构建搜索索引
   - minify:
       minify_html: true
       minify_js: true
       minify_css: true
       htmlmin_opts:
           remove_comments: true
+  - exclude:
+      glob:
+        - "*.tmp"
+        - "*.pdf"
+        - "*.ppt"
+        - "*.doc"
+        - "*.docx"
+        - "node_modules/*"
+        - "site/*"
+      regex:
+        - '.*\.(tmp|pdf|ppt|doc|docx)$'
+  # 添加缓存插件
+  - offline
 
 copyright: Copyright &copy; 2024 GSAI-study
 
