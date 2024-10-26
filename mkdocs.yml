@@ -68,7 +68,6 @@ plugins:
         - "*.docx"
         - "node_modules/*"
         - "site/*"
-  - offline
 
 copyright: Copyright &copy; 2024 GSAI-study
 
