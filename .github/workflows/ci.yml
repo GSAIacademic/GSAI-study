@@ -19,7 +19,6 @@ jobs:
           python-version: 3.x
           cache: 'pip'  # 缓存 pip 依赖
       
-      # 简化缓存配置
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
@@ -54,11 +53,11 @@ jobs:
           }
           EOL
           
-          # 复制文件
+          # 使用 rsync 来复制文件，确保包含 PDF
           for dir in "大一课程" "大二课程" "大三和大四课程"; do
             if [ -d "$dir" ]; then
               echo "Copying $dir to docs/$dir"
-              cp -r "$dir" "docs/"
+              rsync -av --progress "$dir" "docs/" --include="*.pdf" --include="*/"
             fi
           done
           

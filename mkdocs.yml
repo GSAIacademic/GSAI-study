@@ -52,6 +52,12 @@ extra_javascript:
 plugins:
   - search
   - minify
+  - exclude:
+      glob:
+        - "*.tmp"
+      regex:
+        - '.*\.(tmp)$'
+      # 移除对 PDF 的排除
 
 copyright: Copyright &copy; 2024 GSAI-study
 
