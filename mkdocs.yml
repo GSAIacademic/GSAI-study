@@ -65,3 +65,7 @@ extra:
     default: latest
 
 # nav 部分将由脚本自动生成
+
+# 添加额外的 CSS 来美化 PDF 显示
+extra_css:
+  - stylesheets/extra.css

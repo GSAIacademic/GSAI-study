@@ -13,45 +13,52 @@ jobs:
         with:
           fetch-depth: 0
       
-      # 添加 Python 缓存
+      # pip 缓存可以避免每次都重新下载相同的包
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-          cache: 'pip'
+          cache: 'pip'  # 缓存 pip 依赖
       
-      # 修改缓存配置
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-      
-      # 使用 requirements.txt 安装依赖
+      # 简化缓存配置
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-      
-      # 添加构建缓存
-      - name: Cache build
-        uses: actions/cache@v3
-        with:
-          path: site
-          key: mkdocs-build-${{ github.sha }}
-          restore-keys: |
-            mkdocs-build-
       
       - name: Sync files to docs
         run: |
           rm -rf docs
           mkdir -p docs
           
-          # 使用 rsync 替代 cp，可以更快地复制文件
+          # 创建样式目录并写入 CSS
+          mkdir -p docs/stylesheets
+          cat > docs/stylesheets/extra.css << 'EOL'
+          /* PDF 容器样式 */
+          .pdf-container {
+              width: 100%;
+              margin: 20px 0;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              overflow: hidden;
+          }
+          .pdf-container embed,
+          .pdf-container object {
+              width: 100%;
+              height: 600px;
+              border: none;
+          }
+          @media screen and (max-width: 768px) {
+              .pdf-container embed,
+              .pdf-container object {
+                  height: 400px;
+              }
+          }
+          EOL
+          
+          # 复制文件
           for dir in "大一课程" "大二课程" "大三和大四课程"; do
             if [ -d "$dir" ]; then
               echo "Copying $dir to docs/$dir"
-              rsync -av --progress "$dir" "docs/"
+              cp -r "$dir" "docs/"
             fi
           done
           
