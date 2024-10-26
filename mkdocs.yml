@@ -48,10 +48,14 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
-# 简化插件配置
+# 修改插件配置
 plugins:
-  - search
-  - minify
+  - search:
+      lang: zh
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
   - exclude:
       glob:
         - "*.tmp"
