@@ -19,18 +19,19 @@ jobs:
           python-version: 3.x
           cache: 'pip'
       
-      # 添加依赖缓存
+      # 修改缓存配置
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
       
+      # 使用 requirements.txt 安装依赖
       - name: Install dependencies
         run: |
-          pip install mkdocs-material mkdocs-minify-plugin pyyaml pymdown-extensions
+          pip install -r requirements.txt
       
       # 添加构建缓存
       - name: Cache build

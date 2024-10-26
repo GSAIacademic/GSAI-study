@@ -1,0 +1,4 @@
+mkdocs-material>=9.5.0
+mkdocs-minify-plugin>=0.7.1
+pyyaml>=6.0.1
+pymdown-extensions>=10.7
