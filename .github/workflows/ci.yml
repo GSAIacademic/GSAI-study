@@ -1,3 +1,70 @@
+<<<<<<< HEAD
+name: Deploy MkDocs
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      
+      - name: Install dependencies
+        run: |
+          pip install mkdocs-material
+          pip install mkdocs-minify-plugin
+          pip install pyyaml
+      
+      - name: Sync files to docs
+        run: |
+          # 确保 docs 目录存在并清空
+          rm -rf docs
+          mkdir -p docs
+          
+          # 复制 README.md 为 index.md
+          if [ -f "README.md" ]; then
+            echo "Copying README.md to docs/index.md"
+            cp "README.md" "docs/index.md"
+          fi
+          
+          # 复制 start.md
+          if [ -f "start.md" ]; then
+            echo "Copying start.md to docs/"
+            cp "start.md" "docs/"
+          fi
+          
+          # 复制课程目录
+          for dir in "大一课程" "大二课程" "大三和大四课程"; do
+            if [ -d "$dir" ]; then
+              echo "Copying $dir to docs/$dir"
+              cp -r "$dir" "docs/"
+            fi
+          done
+          
+          # 显示最终的目录结构
+          echo "Final docs directory structure:"
+          ls -la docs/
+          find docs/ -type f
+      
+      - name: Generate Navigation
+        run: |
+          python scripts/generate_nav.py
+      
+      - name: Clean and Deploy
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          mkdocs gh-deploy --force --clean --verbose
+=======
 name: Deploy MkDocs
 on:
   push:
@@ -64,3 +131,4 @@ jobs:
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           mkdocs gh-deploy --force --clean --verbose
+>>>>>>> 430568f2730c374af0234d404771ba6ec1081b59
