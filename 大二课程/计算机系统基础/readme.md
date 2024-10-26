@@ -43,9 +43,4 @@
 ## 课程资料
 
 ### 教材
-<div class="pdf-container">
-    <!-- 使用正确的相对路径 -->
-    <object data="ebook/深入理解计算机系统（第三版）.pdf" type="application/pdf">
-        <p>您的浏览器不支持 PDF 预览，请 <a href="ebook/深入理解计算机系统（第三版）.pdf">下载 PDF</a> 查看</p>
-    </object>
-</div>
+

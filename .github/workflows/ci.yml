@@ -54,11 +54,12 @@ jobs:
           }
           EOL
           
-          # 使用 rsync 来复制文件，确保包含 PDF
+          # 复制所有文件，包括 PDF
           for dir in "大一课程" "大二课程" "大三和大四课程"; do
             if [ -d "$dir" ]; then
               echo "Copying $dir to docs/$dir"
-              rsync -av --progress "$dir" "docs/" --include="*.pdf" --include="*/"
+              mkdir -p "docs/$dir"
+              cp -r "$dir"/* "docs/$dir/"
             fi
           done
           

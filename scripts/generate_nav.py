@@ -6,7 +6,23 @@ from typing import Union, Dict, List
 def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
     """递归生成导航项"""
     if path.is_file():
-        # 如果是文件，返回文件名和相对路径
+        # 如果是 PDF 文件，生成一个对应的 Markdown 文件来显示它
+        if path.suffix == '.pdf':
+            pdf_content = f"""
+# {path.stem}
+
+<div class="pdf-container">
+    <object data="{str(path.relative_to(root)).replace('\\', '/')}" type="application/pdf" width="100%" height="600px">
+        <p>您的浏览器不支持 PDF 预览，请 <a href="{str(path.relative_to(root)).replace('\\', '/')}">下载 PDF</a> 查看</p>
+    </object>
+</div>
+"""
+            # 创建一个临时的 Markdown 文件来显示 PDF
+            md_path = path.with_suffix('.md')
+            with open(f"docs/{str(md_path.relative_to(root)).replace('\\', '/')}", 'w', encoding='utf-8') as f:
+                f.write(pdf_content)
+            return {path.stem: str(md_path.relative_to(root)).replace('\\', '/')}
+        
         if path.name == 'index.md':
             return str(path.relative_to(root)).replace('\\', '/')
         return {path.stem: str(path.relative_to(root)).replace('\\', '/')}
