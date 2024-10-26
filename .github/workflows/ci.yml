@@ -22,6 +22,7 @@ jobs:
           pip install mkdocs-material
           pip install mkdocs-minify-plugin
           pip install pyyaml
+          pip install pymdown-extensions
       
       - name: Sync files to docs
         run: |
