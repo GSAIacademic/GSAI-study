@@ -48,10 +48,11 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
+# 修改插件配置
 plugins:
   - search:
       lang: zh
-      prebuild_index: true  # 预构建搜索索引
+      prebuild_index: true
   - minify:
       minify_html: true
       minify_js: true
@@ -67,9 +68,6 @@ plugins:
         - "*.docx"
         - "node_modules/*"
         - "site/*"
-      regex:
-        - '.*\.(tmp|pdf|ppt|doc|docx)$'
-  # 添加缓存插件
   - offline
 
 copyright: Copyright &copy; 2024 GSAI-study
