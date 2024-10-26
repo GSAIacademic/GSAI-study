@@ -5,36 +5,22 @@ from typing import Union, Dict, List
 
 def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
     """递归生成导航项"""
+    # 支持的文件格式
+    SUPPORTED_FORMATS = {
+        # 文档格式
+        '.pdf', '.ppt', '.pptx', '.doc', '.docx',
+        # 代码文件
+        '.py', '.cpp', '.c', '.h', '.hpp', '.java',
+        '.js', '.css', '.html',
+        # Markdown
+        '.md'
+    }
+    
     if path.is_file():
-        # 如果是 PDF 文件，生成一个对应的 Markdown 文件来显示它
-        if path.suffix == '.pdf':
-            print(f"Processing PDF file: {path}")  # 调试输出
-            
-            # 生成预览页面的内容
-            pdf_content = f"""# {path.stem}
-
-<div class="pdf-container">
-    <object data="{str(path.relative_to(root)).replace('\\', '/')}" type="application/pdf" width="100%" height="600px">
-        <p>您的浏览器不支持 PDF 预览，请 <a href="{str(path.relative_to(root)).replace('\\', '/')}">下载 PDF</a> 查看</p>
-    </object>
-</div>
-"""
-            # 创建预览文件在 docs 目录中
-            preview_file = root / path.with_suffix('.md').relative_to(path.parent.parent)
-            print(f"Creating preview file at: {preview_file}")  # 调试输出
-            
-            try:
-                # 确保目录存在
-                os.makedirs(preview_file.parent, exist_ok=True)
-                
-                with open(preview_file, 'w', encoding='utf-8') as f:
-                    f.write(pdf_content)
-                print(f"Successfully created preview file")  # 调试输出
-            except Exception as e:
-                print(f"Error creating preview file: {e}")  # 调试输出
-            
-            # 返回预览页面的路径
-            return {path.stem: str(preview_file.relative_to(root)).replace('\\', '/')}
+        # 如果是支持的文件格式，直接返回文件路径
+        if path.suffix.lower() in SUPPORTED_FORMATS:
+            print(f"Adding file to navigation: {path}")  # 调试输出
+            return {path.stem: str(path.relative_to(root)).replace('\\', '/')}
         
         if path.name == 'index.md':
             return str(path.relative_to(root)).replace('\\', '/')
@@ -56,9 +42,9 @@ def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
         dir_path = path / dir_name
         if dir_path.exists() and dir_path.is_dir():
             sub_items = []
-            # 处理所有文件，包括 PDF
+            # 处理所有支持的文件格式
             for item in sorted(dir_path.iterdir()):
-                if item.is_file() and (item.suffix == '.md' or item.suffix == '.pdf'):
+                if item.is_file() and item.suffix.lower() in SUPPORTED_FORMATS:
                     sub_items.append({item.stem: str(item.relative_to(root)).replace('\\', '/')})
             if sub_items:
                 items.append({dir_name: sub_items})
@@ -66,7 +52,7 @@ def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
     # 处理其他文件
     for item in sorted(path.iterdir()):
         if (item.is_file() and 
-            (item.suffix == '.md' or item.suffix == '.pdf') and 
+            item.suffix.lower() in SUPPORTED_FORMATS and 
             item.name.lower() != 'readme.md' and 
             item.name != 'index.md'):
             items.append({item.stem: str(item.relative_to(root)).replace('\\', '/')})

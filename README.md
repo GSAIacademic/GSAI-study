@@ -14,6 +14,9 @@
 > - scripts/  
 > - start.md
 
+> **💡 提示**  
+> 如果想下载部分文件夹，可使用 https://minhaskamal.github.io/DownGit/#/home
+
 ## 项目结构
 
 本项目按照学年将课程分为三大类：
