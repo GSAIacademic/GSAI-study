@@ -8,6 +8,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10  # 添加超时限制
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,8 +27,9 @@ jobs:
       
       - name: Sync files to docs
         run: |
-          rm -rf docs
-          mkdir -p docs
+          # 添加文件大小检查
+          echo "Checking file sizes..."
+          find . -type f -size +10M -exec ls -lh {} \;
           
           # 创建样式目录并写入 CSS
           mkdir -p docs/stylesheets
@@ -72,6 +74,8 @@ jobs:
       
       - name: Clean and Deploy
         run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          mkdocs gh-deploy --force --clean --verbose
+          # 清理之前的构建
+          rm -rf site/
+          
+          # 使用 --dirty 选项加快部署
+          mkdocs gh-deploy --force --dirty --verbose
