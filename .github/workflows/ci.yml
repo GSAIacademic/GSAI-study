@@ -22,6 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+          pip install mkdocs-exclude  # 直接安装 exclude 插件
       
       - name: Sync files to docs
         run: |
