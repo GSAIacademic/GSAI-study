@@ -19,11 +19,14 @@ def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
     </object>
 </div>
 """
-            # 创建预览文件，保持在同一目录
-            preview_file = path.with_suffix('.md')
+            # 创建预览文件在 docs 目录中
+            preview_file = root / path.with_suffix('.md').relative_to(path.parent.parent)
             print(f"Creating preview file at: {preview_file}")  # 调试输出
             
             try:
+                # 确保目录存在
+                os.makedirs(preview_file.parent, exist_ok=True)
+                
                 with open(preview_file, 'w', encoding='utf-8') as f:
                     f.write(pdf_content)
                 print(f"Successfully created preview file")  # 调试输出
