@@ -1,9 +1,17 @@
-
 # GSAI-study
 
 ## 项目简介
 
 本项目旨在汇总中国人民大学高瓴人工智能学院本科阶段各个课程所需的工具类软件和学习资源。我们希望通过这个开源协作平台,帮助学生更好地了解和准备各门课程所需的技术工具,提高学习效率。
+
+本项目已通过 [MkDocs](https://github.com/mkdocs/mkdocs) 部署在 [https://gsaiacademic.github.io/GSAI-study/](https://gsaiacademic.github.io/GSAI-study/)
+
+**注意：请不要修改以下文件和文件夹，它们会在每次推送时自动部署网页：**
+- docs/
+- .github/workflows/
+- mkdocs.yml
+- scripts/
+- start.md
 
 ## 项目结构
 
