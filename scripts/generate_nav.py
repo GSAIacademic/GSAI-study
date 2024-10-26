@@ -8,6 +8,8 @@ def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
     if path.is_file():
         # 如果是 PDF 文件，生成一个对应的 Markdown 文件来显示它
         if path.suffix == '.pdf':
+            print(f"Processing PDF file: {path}")  # 调试输出
+            
             # 生成预览页面的内容
             pdf_content = f"""# {path.stem}
 
@@ -17,16 +19,19 @@ def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
     </object>
 </div>
 """
-            # 创建预览文件
+            # 创建预览文件，保持在同一目录
             preview_file = path.with_suffix('.md')
-            preview_path = root / str(preview_file.relative_to(path.parent.parent))
-            os.makedirs(preview_path.parent, exist_ok=True)
+            print(f"Creating preview file at: {preview_file}")  # 调试输出
             
-            with open(preview_path, 'w', encoding='utf-8') as f:
-                f.write(pdf_content)
+            try:
+                with open(preview_file, 'w', encoding='utf-8') as f:
+                    f.write(pdf_content)
+                print(f"Successfully created preview file")  # 调试输出
+            except Exception as e:
+                print(f"Error creating preview file: {e}")  # 调试输出
             
             # 返回预览页面的路径
-            return {path.stem: str(preview_file.relative_to(path.parent.parent)).replace('\\', '/')}
+            return {path.stem: str(preview_file.relative_to(root)).replace('\\', '/')}
         
         if path.name == 'index.md':
             return str(path.relative_to(root)).replace('\\', '/')
