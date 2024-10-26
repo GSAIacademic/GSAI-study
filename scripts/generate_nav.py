@@ -1,8 +1,9 @@
 import os
 import yaml
 from pathlib import Path
+from typing import Union, Dict, List
 
-def get_nav_item(path: Path, root: Path) -> dict:
+def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
     """递归生成导航项"""
     if path.is_file():
         # 如果是文件，返回文件名和相对路径
@@ -12,24 +13,36 @@ def get_nav_item(path: Path, root: Path) -> dict:
     
     # 如果是目录，递归处理其中的文件和子目录
     items = []
-    # 优先处理 index.md
-    index_file = path / 'index.md'
-    if index_file.exists():
-        items.append(get_nav_item(index_file, root))
     
-    # 处理其他文件和目录
+    # 处理 readme.md 文件（如果存在）
+    readme_file = path / 'readme.md'
+    if readme_file.exists():
+        items.append({'概述': str(readme_file.relative_to(root)).replace('\\', '/')})
+    
+    # 按照固定顺序处理特定目录
+    dir_order = ['ebook', 'exam', 'homework', '学习资源', '工具软件']
+    
+    # 处理特定目录
+    for dir_name in dir_order:
+        dir_path = path / dir_name
+        if dir_path.exists() and dir_path.is_dir():
+            sub_items = []
+            for item in sorted(dir_path.iterdir()):
+                if item.is_file() and item.suffix == '.md':
+                    sub_items.append({item.stem: str(item.relative_to(root)).replace('\\', '/')})
+            if sub_items:
+                items.append({dir_name: sub_items})
+    
+    # 处理其他文件
     for item in sorted(path.iterdir()):
-        if item.name != 'index.md' and not item.name.startswith('.'):
-            if item.is_file() and item.suffix == '.md':
-                items.append(get_nav_item(item, root))
-            elif item.is_dir():
-                subitems = get_nav_item(item, root)
-                if subitems:  # 只有当子目录非空时才添加
-                    items.append({item.name: subitems})
+        if (item.is_file() and item.suffix == '.md' 
+            and item.name != 'readme.md' 
+            and item.name != 'index.md'):
+            items.append({item.stem: str(item.relative_to(root)).replace('\\', '/')})
     
-    return items if path == root else {path.name: items}
+    return {path.name: items} if path != root else items
 
-def generate_nav():
+def generate_nav() -> List[Dict]:
     docs_path = Path('docs')
     nav = [
         {'首页': 'index.md'},
@@ -41,9 +54,14 @@ def generate_nav():
     for dir_name in main_dirs:
         dir_path = docs_path / dir_name
         if dir_path.exists():
-            nav_item = get_nav_item(dir_path, docs_path)
-            if nav_item:
-                nav.append(nav_item)
+            courses = []
+            for course_dir in sorted(dir_path.iterdir()):
+                if course_dir.is_dir():
+                    course_nav = get_nav_item(course_dir, docs_path)
+                    if course_nav:
+                        courses.append(course_nav)
+            if courses:
+                nav.append({dir_name: courses})
     
     return nav
 

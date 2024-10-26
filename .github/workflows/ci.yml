@@ -89,6 +89,7 @@ jobs:
           pip install mkdocs-material
           pip install mkdocs-minify-plugin
           pip install pyyaml
+          pip install pymdown-extensions
           pip install materialx
       
       - name: Sync files to docs
