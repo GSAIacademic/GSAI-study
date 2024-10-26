@@ -27,17 +27,19 @@ def get_nav_item(path: Path, root: Path) -> Union[Dict, str]:
         dir_path = path / dir_name
         if dir_path.exists() and dir_path.is_dir():
             sub_items = []
+            # 处理所有文件，包括 PDF
             for item in sorted(dir_path.iterdir()):
-                if item.is_file() and item.suffix == '.md':
+                if item.is_file() and (item.suffix == '.md' or item.suffix == '.pdf'):
                     sub_items.append({item.stem: str(item.relative_to(root)).replace('\\', '/')})
             if sub_items:
                 items.append({dir_name: sub_items})
     
     # 处理其他文件
     for item in sorted(path.iterdir()):
-        if (item.is_file() and item.suffix == '.md' 
-            and item.name != 'readme.md' 
-            and item.name != 'index.md'):
+        if (item.is_file() and 
+            (item.suffix == '.md' or item.suffix == '.pdf') and 
+            item.name.lower() != 'readme.md' and 
+            item.name != 'index.md'):
             items.append({item.stem: str(item.relative_to(root)).replace('\\', '/')})
     
     return {path.name: items} if path != root else items
