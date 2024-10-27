@@ -13,6 +13,7 @@
 > - mkdocs.yml   
 > - scripts/  
 > - start.md
+> - requirements.txt
 
 > **💡 提示**  
 > 如果想下载部分文件夹，可使用 https://minhaskamal.github.io/DownGit/#/home
